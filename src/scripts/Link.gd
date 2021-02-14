@@ -1,9 +1,10 @@
 extends Node2D
 
-const Point = preload("res://scenes/point.tscn")
+var Point = load("res://src/scripts/Point.gd")
 
 var start
 var end
+var d
 var hidden
 var hover = false
 

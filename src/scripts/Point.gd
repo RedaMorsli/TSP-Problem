@@ -56,18 +56,20 @@ func update_label():
 	$Label.text = label
 
 func _on_Label_gui_input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT and event.pressed:
-			if Globals.linking:
-				emit_signal("apply_link", self)
-			else:
-				emit_signal("start_link", self)
-
+#	if event is InputEventMouseButton:
+#		if event.button_index == BUTTON_LEFT and event.pressed:
+#			if Globals.linking:
+#				emit_signal("apply_link", self)
+#			else:
+#				emit_signal("start_link", self)
+	pass
 
 func _on_mouse_entered():
-	if not Globals.linking:
-		emit_signal("mouse_entred_point", self)
+#	if not Globals.linking:
+#		emit_signal("mouse_entred_point", self)
+	pass
 
 
 func _on_mouse_exited():
-	emit_signal("mouse_exited_point", self)
+#	emit_signal("mouse_exited_point", self)
+	pass

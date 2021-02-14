@@ -16,8 +16,14 @@ _global_script_class_icons={
 [application]
 
 config/name="TSP_problem"
+run/main_scene="res://src/scenes/App.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Globals="*res://src/scripts/Globals.gd"
 
 [rendering]
 
+environment/default_clear_color=Color( 1, 1, 1, 1 )
 environment/default_environment="res://default_env.tres"
