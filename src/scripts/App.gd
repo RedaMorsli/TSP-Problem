@@ -1,5 +1,8 @@
 extends Node2D
 
+signal update(tab, d_total)
+signal reset()
+
 const Point = preload("res://src/scenes/Point.tscn")
 const Link = preload("res://src/scenes/Link.tscn")
 
@@ -116,16 +119,29 @@ func _add_link(start, end):
 #	item.connect("exit_link_item", self, "_exit_link_item")
 #	linkList.add_child(item)
 
+func _remove_point():
+	reset_highlight()
+	var p = get_point(Globals.id_count - 1)
+	for l in links.get_children():
+		if(l.start == p or l.end == p):
+			l.queue_free()
+	p.queue_free()
+	Globals.nb_points -= 1
+	Globals.id_count -= 1
+
 
 func _update_globals():
 	Globals.center = Vector2(get_viewport_rect().size.x / 2, get_viewport_rect().size.y / 2)
 	Globals.radius = Vector2(get_viewport_rect().size.y / 2 - 48, 0)
 
 func _on_Button_pressed():
+	reset_highlight()
 	_add_point()
 
 func _on_point_clicked(point):
-	highlight(tsp(point.label))
+	var tsp = tsp(point.label)
+	highlight(tsp)
+	emit_signal("update", tsp, d(tsp))
 
 func highlight(tab : Array):
 	reset_highlight()
@@ -138,6 +154,7 @@ func reset_highlight():
 		l.set_highlight(false)
 	for p in points.get_children():
 		p.set_highlight(false)
+	emit_signal("reset")
 
 func permut(lst : Array):
 	if(lst.empty()):
@@ -155,3 +172,21 @@ func permut(lst : Array):
 		for p in permut(remLst):
 			l.append([m] + p)
 	return l 
+
+
+func _on_reset_pressed():
+	reset_highlight()
+
+
+func _on_remove_all_pressed():
+	reset_highlight()
+	for l in links.get_children():
+		l.queue_free()
+	for p in points.get_children():
+		p.queue_free()
+	Globals.nb_points = 0
+	Globals.id_count = 1
+
+
+func _on_remove_point_pressed():
+	_remove_point()
