@@ -29,6 +29,8 @@ margin_top = -25.0
 margin_right = -25.0
 margin_bottom = -25.0
 rect_min_size = Vector2( 50, 50 )
+mouse_filter = 0
+mouse_default_cursor_shape = 9
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "20"
@@ -40,3 +42,4 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )
+[connection signal="gui_input" from="Area2D/Sprite/Label" to="." method="_on_Label_gui_input"]

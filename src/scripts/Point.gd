@@ -7,6 +7,7 @@ export var label : String
 var index
 var hidden = false
 
+signal point_clicked(point)
 signal start_link(point)
 signal apply_link(point)
 signal mouse_entred_point(point)
@@ -56,8 +57,9 @@ func update_label():
 	$Label.text = label
 
 func _on_Label_gui_input(event):
-#	if event is InputEventMouseButton:
-#		if event.button_index == BUTTON_LEFT and event.pressed:
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT and event.pressed:
+			emit_signal("point_clicked", self)
 #			if Globals.linking:
 #				emit_signal("apply_link", self)
 #			else:
